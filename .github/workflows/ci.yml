@@ -100,7 +100,8 @@ jobs:
             git remote add base https://github.com/${{ github.event.pull_request.base.repo.full_name }}.git
           
             git push base $new_branch
-          
+            echo "Base branch: ${{ github.event.pull_request.head.ref }}"
+
             gh pr create --title "Update Score In Pull Request Number ${{ github.event.pull_request.number }}" \
             --head "$new_branch" \
             --base "${{ github.event.pull_request.head.ref }}" \
