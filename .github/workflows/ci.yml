@@ -104,7 +104,7 @@ jobs:
 
             gh pr create --title "Update Score In Pull Request Number ${{ github.event.pull_request.number }}" \
             --head "${{ github.actor }}:$new_branch" \
-            --base "${{ github.repository_owner }}:${{ github.event.pull_request.head.ref }}" \
+            --base "${{ github.event.pull_request.head.ref }}" \
             --body "This pull request updates the current score of Auto-GPT. Please check the files changed and merge the pull request." \
             --repo ${{ github.event.pull_request.head.repo.full_name }}
           else
