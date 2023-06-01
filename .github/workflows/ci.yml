@@ -86,7 +86,7 @@ jobs:
         run: |
           current_date_time=$(date +'%Y%m%d%H%M%S')
           new_branch="update-score-${{ github.event.pull_request.number }}-$current_date_time"
-
+          
           git config --global user.name "Auto-GPT-Bot"
           git config --global user.email "github-bot@agpt.co"
           echo "test" >> tests/integration/challenges/current_score.json
@@ -94,18 +94,18 @@ jobs:
             git add tests/integration/challenges/current_score.json
             git commit -m "Update score"
             git checkout -b $new_branch
-
+          
             echo ${{ secrets.PAT_REVIEW }} | gh auth login --with-token
-
+          
             git remote add base https://github.com/${{ github.event.pull_request.base.repo.full_name }}.git
-
+          
             git push base $new_branch
-
+          
             gh pr create --title "Update Score In Pull Request Number ${{ github.event.pull_request.number }}" \
             --head "$new_branch" \
-            --base "${{ github.event.pull_request.head.repo.owner.login }}:${{ github.event.pull_request.head.ref }}" \
+            --base "${{ github.event.pull_request.head.ref }}" \
             --body "This pull request updates the current score of Auto-GPT. Please check the files changed and merge the pull request." \
-            --repo ${{ github.event.pull_request.base.repo.full_name }}
+            --repo ${{ github.event.pull_request.head.repo.full_name }}
           else
             echo "The current score didn't change."
           fi
