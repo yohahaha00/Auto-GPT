@@ -169,7 +169,7 @@ jobs:
         if: ${{ github.event_name == 'pull_request_target' }}
         run: |
           mirror_branch_submodule="${{ github.event.pull_request.user.login }}-${{ github.event.pull_request.head.ref }}"
-          echo "MIRROR_BRANCH_SUBMODULE=mirror_branch_submodule >> $GITHUB_ENV
+          echo "MIRROR_BRANCH_SUBMODULE=$mirror_branch_submodule" >> $GITHUB_ENV
 
           cd tests/Auto-GPT-test-cassettes
 
