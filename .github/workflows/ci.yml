@@ -83,6 +83,7 @@ jobs:
           token: ${{ secrets.PAT_REVIEW }}
 
       - name: Get mirror branch submodule
+        run: |
           mirror_branch_submodule="${{ github.event.pull_request.user.login }}-${{ github.event.pull_request.head.ref }}"
           echo "MIRROR_BRANCH_SUBMODULE=${{ env.MIRROR_BRANCH_SUBMODULE}}" >> $GITHUB_ENV
 
@@ -240,7 +241,6 @@ jobs:
           else
             echo "The current score didn't change."
           fi
-      
 
       - name: Apply or remove behaviour change label and comment
         if: ${{ github.event_name == 'pull_request_target' }}
